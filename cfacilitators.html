@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facilitators - HerInTech Magazine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #C9C8DC 0%, #f3f3f3 100%);
+            min-height: 100vh;
+            color: #283549;
+            line-height: 1.6;
+        }
+
+        /* Notification Bar */
+        .notification-bar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 44px;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #283549;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            color: #667eea;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item.active {
+            color: #667eea !important;
+            font-weight: 600;
+        }
+
+        .nav-item.active::after {
+            width: 100% !important;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .join-btn, .support-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 124px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            margin-bottom: 3rem;
+            border-radius: 20px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a2a45, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Facilitators Section */
+        .facilitators-section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 3rem;
+        }
+
+        .facilitators-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .facilitators-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #1a2a45, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Facilitators Grid */
+        .facilitators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .facilitator-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .facilitator-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.05), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .facilitator-card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        .facilitator-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .facilitator-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 4px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .facilitator-card:hover .facilitator-avatar {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .facilitator-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .facilitator-name {
+            font-weight: 700;
+            color: #1a2a45;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .facilitator-title {
+            color: #667eea;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .facilitator-bio {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .facilitator-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: #1976d2;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Team Stats */
+        .team-stats {
+            background: linear-gradient(135deg, #2d3748, #1a2a45);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #87ceeb;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #e2e8f0;
+            font-size: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons {
+                display: none;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .facilitators-section {
+                padding: 2rem;
+            }
+
+            .facilitators-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .facilitators-section {
+                padding: 1.5rem;
+            }
+
+            .facilitator-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Bar -->
+    <div class="notification-bar">
+        <div class="notification-content">
+            <span class="notification-text">NEW ISSUES OF HERINTECH HAS ARRIVED NOW</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">HerInTech</div>
+            <ul class="nav-menu">
+                <li><a href="chome.html" class="nav-item">Home</a></li>
+                <li><a href="cgallery.html" class="nav-item">Gallery</a></li>
+                <li><a href="ccoverp.html" class="nav-item">Cover Story</a></li>
+                <li><a href="cfacilitators.html" class="nav-item active">Facilitators</a></li>
+                <li><a href="cabout.html" class="nav-item">About Us</a></li>
+                <li><a href="csupport.html" class="nav-item">Support Us</a></li>
+                <li><a href="ccontact.html" class="nav-item">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="join-btn" onclick="window.location.href='ccontact.html'">Join Us</button>
+                <button class="support-btn" onclick="window.location.href='csupport.html'">Support us</button>
+            
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Our Facilitators</h1>
+                <p class="page-subtitle">Meet the passionate educators and mentors shaping the future of tech</p>
+            </div>
+
+            <!-- Facilitators Section -->
+            <section class="facilitators-section">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="intro-text">
+                    Our facilitators are industry professionals, educators, and mentors who are passionate about empowering the next generation of women in technology. Each brings unique expertise and experience to help our participants grow and succeed.
+                </p>
+
+                <div class="facilitators-grid">
+                    <div class="facilitator-card">
+                        <div class="facilitator-avatar">
+                            <img src="avatar1.jpg" alt="IKIREZI LINDA Pacifique">
+                        </div>
+                        <div class="facilitator-name">IKIREZI LINDA Pacifique</div>
+                        <div class="facilitator-title">Lead Mentor / Product Designer / Founder</div>
+                        <div class="facilitator-bio">
+                            Leading the HerInTech initiative with passion and vision. Linda specializes in product design and has founded multiple tech ventures, bringing real-world experience to our participants.
+                        </div>
+                        <div class="facilitator-skills">
+                            <span class="skill-tag">Product Design</span>
+                            <span class="skill-tag">Leadership</span>
+                            <span class="skill-tag">Entrepreneurship</span>
+                        </div>
+                    </div>
+
+                    <div class="facilitator-card">
+                        <div class="facilitator-avatar">
+                            <img src="avatar2.jpg" alt="Gashugi Liliose">
+                        </div>
+                        <div class="facilitator-name">Gashugi Liliose</div>
+                        <div class="facilitator-title">Developer / Teacher</div>
+                        <div class="facilitator-bio">
+                            Expert developer with a passion for education. Liliose brings years of coding experience and teaching expertise to help participants master programming fundamentals and advanced concepts.
+                        </div>
+                        <div class="facilitator-skills">
+                            <span class="skill-tag">Web Development</span>
+                            <span class="skill-tag">Teaching</span>
+                            <span class="skill-tag">Mentoring</span>
+                        </div>
+                    </div>
+
+                    <div class="facilitator-card">
+                        <div class="facilitator-avatar">
+                            <img src="avatar3.jpg" alt="Uwase Huguette">
+                        </div>
+                        <div class="facilitator-name">Uwase Huguette</div>
+                        <div class="facilitator-title">Designer / Educator</div>
+                        <div class="facilitator-bio">
+                            Creative designer with a focus on user experience and visual design. Huguette helps participants develop their design thinking skills and create beautiful, functional digital experiences.
+                        </div>
+                        <div class="facilitator-skills">
+                            <span class="skill-tag">UI/UX Design</span>
+                            <span class="skill-tag">Creative Arts</span>
+                            <span class="skill-tag">Design Thinking</span>
+                        </div>
+                    </div>
+
+                    <div class="facilitator-card">
+                        <div class="facilitator-avatar">
+                            <img src="avatar4.jpg" alt="Keza Annie">
+                        </div>
+                        <div class="facilitator-name">Keza Annie</div>
+                        <div class="facilitator-title">Content Creator</div>
+                        <div class="facilitator-bio">
+                            Digital content strategist and creator specializing in tech communication. Annie helps participants develop their personal brand and communicate their technical achievements effectively.
+                        </div>
+                        <div class="facilitator-skills">
+                            <span class="skill-tag">Content Strategy</span>
+                            <span class="skill-tag">Digital Marketing</span>
+                            <span class="skill-tag">Branding</span>
+                        </div>
+                    </div>
+
+                    <div class="facilitator-card">
+                        <div class="facilitator-avatar">
+                            <img src="avatar6.jpg" alt="Nshizirungu Wilson">
+                        </div>
+                        <div class="facilitator-name">Nshizirungu Wilson</div>
+                        <div class="facilitator-title">Teacher</div>
+                        <div class="facilitator-bio">
+                            Experienced educator with a passion for STEM education. Wilson brings structured learning approaches and academic excellence to ensure participants build strong foundational knowledge.
+                        </div>
+                        <div class="facilitator-skills">
+                            <span class="skill-tag">STEM Education</span>
+                            <span class="skill-tag">Mathematics</span>
+                            <span class="skill-tag">Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team Stats -->
+            <section class="team-stats">
+                <h2>Our Impact Together</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Expert Facilitators</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-label">Years of impact</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Students Mentored</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Skills Covered</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <h2>Join Our Team</h2>
+                <p>Are you passionate about empowering girls in technology? We're always looking for dedicated facilitators and mentors.</p>
+                <a href="ccontact.html" class="cta-button">Become a Facilitator</a>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Counter animation for statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/\D/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = counter.textContent.replace(/\d+/, target);
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is in view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.team-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Set initial state and observe sections
+        document.querySelectorAll('.facilitators-section, .team-stats, .cta-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Staggered animation for facilitator cards
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.facilitator-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            cardObserver.observe(card);
+        });
+    </script>
+</body>
+</html>

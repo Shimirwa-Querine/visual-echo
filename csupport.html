@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Us - HerInTech Magazine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #C9C8DC 0%, #f3f3f3 100%);
+            min-height: 100vh;
+            color: #283549;
+            line-height: 1.6;
+        }
+
+        /* Notification Bar */
+        .notification-bar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 44px;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #283549;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            color: #667eea;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item.active {
+            color: #667eea !important;
+            font-weight: 600;
+        }
+
+        .nav-item.active::after {
+            width: 100% !important;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .join-btn, .support-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 124px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            margin-bottom: 3rem;
+            border-radius: 20px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a2a45, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Support Section */
+        .support-section {
+            background: linear-gradient(135deg, #2d3748, #1a2a45);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            margin: 3rem 0;
+            overflow: hidden;
+        }
+
+        .support-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .support-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #87ceeb;
+            text-align: center;
+        }
+
+        .support-intro {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .support-content {
+            margin-bottom: 2rem;
+        }
+
+        .support-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .support-list {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .support-list li {
+            margin: 8px 0;
+            color: #e2e8f0;
+        }
+
+        .highlight {
+            color: #87ceeb;
+            font-weight: bold;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .payment-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #87ceeb;
+            text-align: center;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .payment-method {
+            background: rgba(74, 119, 168, 0.8);
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px 10px 5px 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .payment-details {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Ways to Help Section */
+        .ways-help-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ways-help-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #48bb78, #38a169, #667eea, #764ba2);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .ways-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .way-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .way-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(72, 187, 120, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .way-card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        .way-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .way-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #48bb78;
+        }
+
+        .way-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1a2a45;
+        }
+
+        .way-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons {
+                display: none;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .support-section {
+                padding: 2rem;
+            }
+
+            .support-title {
+                font-size: 2rem;
+            }
+
+            .ways-help-section {
+                padding: 2rem;
+            }
+
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .support-title {
+                font-size: 1.8rem;
+            }
+
+            .support-section, .ways-help-section {
+                padding: 1.5rem;
+            }
+
+            .way-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Bar -->
+    <div class="notification-bar">
+        <div class="notification-content">
+            <span class="notification-text">NEW ISSUES OF HERINTECH HAS ARRIVED NOW</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">HerInTech</div>
+            <ul class="nav-menu">
+                <li><a href="chome.html" class="nav-item">Home</a></li>
+                <li><a href="cgallery.html" class="nav-item">Gallery</a></li>
+                <li><a href="ccoverp.html" class="nav-item">Cover Story</a></li>
+                <li><a href="cfacilitators.html" class="nav-item">Facilitators</a></li>
+                <li><a href="cabout.html" class="nav-item">About Us</a></li>
+                <li><a href="csupport.html" class="nav-item active">Support Us</a></li>
+                <li><a href="ccontact.html" class="nav-item">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="join-btn" onclick="window.location.href='contact.html'">Join Us</button>
+                <button class="support-btn" onclick="window.location.href='support.html'">Support us</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Support Us</h1>
+                <p class="page-subtitle">Help us empower the next generation of women in technology</p>
+            </div>
+
+            <!-- Support Section -->
+            <section class="support-section">
+                <h2 class="support-title">🌸 Support HerInTech Magazine</h2>
+                <p class="support-intro">HerInTech is more than a magazine — it's a movement. We're dedicated to inspiring, empowering, and celebrating women and girls in technology through stories, resources, and opportunities.</p>
+
+                <div class="support-content">
+                    <p><strong class="highlight">By supporting us, you help:</strong></p>
+                    <ul class="support-list">
+                        <li>Share real stories of women breaking barriers in tech.</li>
+                        <li>Provide learning resources for aspiring innovators.</li>
+                        <li>Create a platform where voices are heard and celebrated.</li>
+                        <li>Fund scholarships and camp programs for underrepresented girls.</li>
+                        <li>Build a sustainable community of women in technology.</li>
+                    </ul>
+                </div>
+
+                <div class="payment-section">
+                    <h3 class="payment-title">💝 Make a Donation</h3>
+                    <p style="text-align: center; margin-bottom: 1.5rem;">Every contribution, no matter the size, makes a difference in a girl's tech journey.</p>
+                    
+                    <div class="payment-options">
+                        <div class="payment-card">
+                            <div class="payment-method">Mobile Money</div>
+                            <div class="payment-details">*182*8*1*30450#</div>
+                            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Quick and secure mobile payments</p>
+                        </div>
+                        
+                        <div class="payment-card">
+                            <div class="payment-method">Bank Transfer</div>
+                            <div class="payment-details">6785945173089778</div>
+                            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Equity Bank Account</p>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 1.5rem;"><strong>Account Name: HerInTech</strong></p>
+                </div>
+            </section>
+
+            <!-- Ways to Help Section -->
+            <section class="ways-help-section">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, #1a2a45, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">How You Can Help</h2>
+                
+                <div class="ways-grid">
+                    <div class="way-card">
+                        <div class="way-icon">📚</div>
+                        <h3 class="way-title">Subscribe & Read</h3>
+                        <p class="way-description">Stay inspired with every issue of our magazine. Share our content with friends, family, and colleagues to spread awareness about women in tech.</p>
+                    </div>
+
+                    <div class="way-card">
+                        <div class="way-icon">💰</div>
+                        <h3 class="way-title">Donate</h3>
+                        <p class="way-description">Every contribution fuels our mission. Your donations help fund camps, provide resources, and create opportunities for aspiring tech leaders.</p>
+                    </div>
+
+                    <div class="way-card">
+                        <div class="way-icon">📢</div>
+                        <h3 class="way-title">Spread the Word</h3>
+                        <p class="way-description">Share our magazine with friends, schools, and communities. Help us reach more girls who need to know they belong in tech.</p>
+                    </div>
+
+                    <div class="way-card">
+                        <div class="way-icon">🤝</div>
+                        <h3 class="way-title">Volunteer</h3>
+                        <p class="way-description">Join our team as a mentor, facilitator, or content contributor. Share your expertise and help shape the next generation.</p>
+                    </div>
+
+                    <div class="way-card">
+                        <div class="way-icon">🏢</div>
+                        <h3 class="way-title">Corporate Partnership</h3>
+                        <p class="way-description">Partner with us as a company to sponsor programs, provide internships, or offer resources for our community.</p>
+                    </div>
+
+                    <div class="way-card">
+                        <div class="way-icon">✍️</div>
+                        <h3 class="way-title">Share Your Story</h3>
+                        <p class="way-description">Contribute your success story, insights, or expertise to inspire others. Your voice can change someone's life.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact Statement -->
+            <section class="ways-help-section" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9);">
+                <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: #2e7d32;">Together, We Can Create Change</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #388e3c; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                    With your support, we can create a world where every girl knows she belongs in technology. Where coding bootcamps are filled with diverse voices, where tech companies are led by women from all backgrounds, and where innovation knows no gender barriers.
+                </p>
+                <p style="text-align: center; font-size: 1.2rem; color: #2e7d32; margin-top: 1.5rem; font-weight: 600;">
+                    Your support changes lives. 💙
+                </p>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta-section">
+                <h2>Ready to Make a Difference?</h2>
+                <p>Join us in empowering girls to code their future. Every action, no matter how small, creates ripples of change.</p>
+                <div>
+                    <a href="ccontact.html" class="cta-button">Get Involved</a>
+                    <a href="mailto:herintechmagazine@gmail.com" class="cta-button">Email Us</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Set initial state and observe sections
+        document.querySelectorAll('.support-section, .ways-help-section, .cta-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Staggered animation for way cards
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.way-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            cardObserver.observe(card);
+        });
+
+        // Add copy to clipboard functionality for payment details
+        document.querySelectorAll('.payment-details').forEach(detail => {
+            detail.style.cursor = 'pointer';
+            detail.title = 'Click to copy';
+            
+            detail.addEventListener('click', function() {
+                navigator.clipboard.writeText(this.textContent).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = 'Copied!';
+                    this.style.color = '#48bb78';
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.color = '#e2e8f0';
+                    }, 2000);
+                });
+            });
+        });
+
+        // Add floating hearts animation
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💙';
+            heart.style.cssText = `
+                position: fixed;
+                font-size: 20px;
+                pointer-events: none;
+                z-index: 1000;
+                animation: floatUp 3s ease-out forwards;
+            `;
+            
+            // Random position
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.bottom = '0px';
+            
+            document.body.appendChild(heart);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (document.body.contains(heart)) {
+                    document.body.removeChild(heart);
+                }
+            }, 3000);
+        }
+
+        // Add floating animation CSS
+        const floatingCSS = `
+            @keyframes floatUp {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) rotate(0deg);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-100vh) rotate(360deg);
+                }
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = floatingCSS;
+        document.head.appendChild(style);
+
+        // Trigger hearts on donation button clicks
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', () => {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => createFloatingHeart(), i * 200);
+                }
+            });
+        });
+
+        // Add particle effect to support section
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: rgba(135, 206, 235, 0.6);
+                border-radius: 50%;
+                pointer-events: none;
+                animation: particleFloat 4s linear infinite;
+            `;
+            
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 4 + 's';
+            
+            return particle;
+        }
+
+        // Add particle animation CSS
+        const particleCSS = `
+            @keyframes particleFloat {
+                0% {
+                    opacity: 0;
+                    transform: translateY(100px);
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-100px);
+                }
+            }
+        `;
+        
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = particleCSS;
+        document.head.appendChild(particleStyle);
+
+        // Add particles to support section
+        const supportSection = document.querySelector('.support-section');
+        if (supportSection) {
+            for (let i = 0; i < 20; i++) {
+                supportSection.appendChild(createParticle());
+            }
+        }
+    </script>
+</body>
+</html>

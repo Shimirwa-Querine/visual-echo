@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - HerInTech Magazine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #C9C8DC 0%, #f3f3f3 100%);
+            min-height: 100vh;
+            color: #283549;
+            line-height: 1.6;
+        }
+
+        /* Notification Bar */
+        .notification-bar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 44px;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #283549;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            color: #667eea;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item.active {
+            color: #667eea !important;
+            font-weight: 600;
+        }
+
+        .nav-item.active::after {
+            width: 100% !important;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .join-btn, .support-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 124px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            margin-bottom: 3rem;
+            border-radius: 20px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a2a45, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Gallery Sections */
+        .gallery-section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .gallery-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .section-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, #1a2a45, #283549);
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: -2rem -2rem 2rem -2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Camp Showcase */
+        .camp-showcase {
+            text-align: center;
+        }
+
+        .camp-title {
+            font-size: 2.5rem;
+            color: #1C3971;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .camp-subtitle {
+            font-size: 1.2rem;
+            color: #283549;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .camp-image {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin: 0 auto 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .camp-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .camp-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .camp-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1C3971;
+            display: block;
+        }
+
+        .stat-label {
+            color: #283549;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Work Section */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .work-content h3 {
+            font-size: 1.8rem;
+            color: #1C3971;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .work-quote {
+            font-size: 1.1rem;
+            color: #283549;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 4px solid #64a1e2;
+        }
+
+        .work-gallery, .fun-gallery, .mentorship-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            height: 200px;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Fun Section */
+        .fun-description {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .chat-avatars {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .chat-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .chat-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chat-content h3 {
+            font-size: 1.8rem;
+            color: #1C3971;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .chat-content p {
+            color: #283549;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons {
+                display: none;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .camp-title {
+                font-size: 2rem;
+            }
+
+            .work-grid, .chat-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .gallery-item {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .camp-title {
+                font-size: 1.5rem;
+            }
+
+            .work-gallery, .fun-gallery, .mentorship-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Bar -->
+    <div class="notification-bar">
+        <div class="notification-content">
+            <span class="notification-text">NEW ISSUES OF HERINTECH HAS ARRIVED NOW</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">HerInTech</div>
+            <ul class="nav-menu">
+                <li><a href="chome.html" class="nav-item">Home</a></li>
+                <li><a href="gallery.html" class="nav-item active">Gallery</a></li>
+                <li><a href="ccoverp.html" class="nav-item">Cover Story</a></li>
+                <li><a href="cfacilitators.html" class="nav-item">Facilitators</a></li>
+                <li><a href="cabout.html" class="nav-item">About Us</a></li>
+                <li><a href="csupport.html" class="nav-item">Support Us</a></li>
+                <li><a href="ccontact.html" class="nav-item">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="join-btn" onclick="window.location.href='contact.html'">Join Us</button>
+                <button class="support-btn" onclick="window.location.href='support.html'">Support us</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Gallery</h1>
+                <p class="page-subtitle">Experience the journey through our HerInTech Summer Camp 2025</p>
+            </div>
+
+            <!-- Summer Camp Section -->
+            <section class="gallery-section">
+                <div class="section-header">
+                    <i class="fas fa-campground"></i> HerInTech Summer Camp 2025
+                </div>
+                <div class="camp-showcase">
+                    <h2 class="camp-title">Summer Camp 2025</h2>
+                    <p class="camp-subtitle">#RECAP - An Unforgettable Journey</p>
+                    <div class="camp-image">
+                        <img src="themain.jpg" alt="HerInTech Summer Camp 2025 Group Photo">
+                    </div>
+                    <div class="camp-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">150+</span>
+                            <span class="stat-label">Participants</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">Courses</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Mentors</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">30</span>
+                            <span class="stat-label">Days</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work & Collaboration Section -->
+            <section class="gallery-section">
+                <div class="section-header">
+                    <i class="fas fa-users"></i> Work & Collaboration
+                </div>
+                <div class="work-grid">
+                    <div class="gallery-item">
+                        <img src="pic2.jpg" alt="Teamwork in Development">
+                    </div>
+                    <div class="work-content">
+                        <h3>Teamwork in Development</h3>
+                        <p class="work-quote">"First steps into teamwork, hands busy and minds buzzing. Ideas taking shape as we learn from each other. This is where creativity and friendship begin."</p>
+                    </div>
+                </div>
+                <div class="work-gallery">
+                    <div class="gallery-item">
+                        <img src="fun4.jpg" alt="Work Session 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="about us 2.jpg" alt="Work Session 2">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fun & Community Section -->
+            <section class="gallery-section">
+                <div class="section-header">
+                    <i class="fas fa-heart"></i> Fun & Community
+                </div>
+                <div class="fun-description">
+                    <p><i class="fas fa-star"></i> "Laughter melts the distance between us. One game at a time, we're learning each other's stories. Stronger bonds mean stronger teams."</p>
+                </div>
+                <div class="fun-gallery">
+                    <div class="gallery-item">
+                        <img src="fun1.jpg" alt="Fun Activity 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="fun3.jpg" alt="Fun Activity 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="together.jpg" alt="Fun Activity 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="h2.jpg" alt="Fun Activity 4">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Chat Section -->
+            <section class="gallery-section">
+                <div class="section-header">
+                    <i class="fas fa-comments"></i> Community Chat
+                </div>
+                <div class="chat-container">
+                    <div class="chat-avatars">
+                        <div class="chat-avatar">
+                            <img src="me.jpg" alt="Member 1">
+                        </div>
+                        <div class="chat-avatar">
+                            <img src="me1.jpg" alt="Member 2">
+                        </div>
+                        <div class="chat-avatar">
+                            <img src="me2.jpg" alt="Member 3">
+                        </div>
+                        <div class="chat-avatar">
+                            <img src="me3.jpg" alt="Member 4">
+                        </div>
+                    </div>
+                    <div class="chat-content">
+                        <h3>Memories of Joy</h3>
+                        <p>Feedback from one of the students that attended the camp: "I've learned so much in such a short time. This camp made me believe in my abilities. The activities were fun and challenging. I've made friends I'll keep for life."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mentorship Section -->
+            <section class="gallery-section">
+                <div class="section-header">
+                    <i class="fas fa-graduation-cap"></i> Mentorship & Career Planning
+                </div>
+                <div class="work-grid">
+                    <div class="gallery-item">
+                        <img src="meet2.jpg" alt="Mentorship Session">
+                    </div>
+                    <div class="work-content">
+                        <h3>Guiding the Future That Lies Ahead</h3>
+                        <p>Welcoming the wisdom and experience of our mentors. Their stories inspire us to dream bigger and reach higher, creating pathways for career growth and personal development in technology.</p>
+                    </div>
+                </div>
+                <div class="mentorship-gallery">
+                    <div class="gallery-item">
+                        <img src="meet1.jpg" alt="Career Planning Session 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="meet3.jpg" alt="Career Planning Session 2">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Counter animation for statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/\D/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = counter.textContent.replace(/\d+/, target);
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when statistics section is in view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.camp-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Set initial state and observe sections
+        document.querySelectorAll('.gallery-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

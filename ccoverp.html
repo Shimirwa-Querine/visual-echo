@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Story - HerInTech Magazine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #C9C8DC 0%, #f3f3f3 100%);
+            min-height: 100vh;
+            color: #283549;
+            line-height: 1.6;
+        }
+
+        /* Notification Bar */
+        .notification-bar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 44px;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #283549;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            color: #667eea;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item.active {
+            color: #667eea !important;
+            font-weight: 600;
+        }
+
+        .nav-item.active::after {
+            width: 100% !important;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .join-btn, .support-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 124px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            margin-bottom: 3rem;
+            border-radius: 20px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a2a45, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 3rem;
+        }
+
+        .story-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .story-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #1a2a45, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .story-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #444;
+            text-align: justify;
+        }
+
+        /* Image Section */
+        .image-section {
+            margin: 25px 0;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-image, .team-image {
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+            border-radius: 15px;
+            display: block;
+            margin-bottom: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        .main-image:hover, .team-image:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 14px;
+            color: #1976d2;
+            font-weight: 600;
+            font-style: italic;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(25, 118, 210, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background: linear-gradient(135deg, #c8e6c9, #e8f5e8);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 15px;
+            display: flex;
+            gap: 18px;
+            box-shadow: 0 4px 15px rgba(200, 230, 201, 0.4);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .feature-image {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            border-radius: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(141, 110, 99, 0.4);
+            overflow: hidden;
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .feature-content {
+            flex: 1;
+        }
+
+        .feature-content h3 {
+            color: #2e7d32;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .feature-content p {
+            color: #388e3c;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .what-we-offer {
+            margin-top: 15px;
+        }
+
+        .what-we-offer h4 {
+            color: #2e7d32;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .offer-list {
+            color: #388e3c;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: linear-gradient(135deg, #fff3e0, #ffecb3);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #e65100;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 243, 224, 0.6);
+            border-left: 4px solid #ff9800;
+            position: relative;
+        }
+
+        .quote-section::before {
+            content: '"';
+            font-size: 3rem;
+            color: #ff9800;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .quote-section::after {
+            content: '"';
+            font-size: 3rem;
+            color: #ff9800;
+            position: absolute;
+            bottom: -40px;
+            right: 20px;
+            opacity: 0.3;
+        }
+
+        /* Story Footer */
+        .story-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fafafa, #f5f5f5);
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .story-footer .team-credit {
+            color: #ff5722;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .story-footer .author-credit {
+            color: #666;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons {
+                display: none;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .story-section {
+                padding: 2rem;
+            }
+
+            .feature-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .story-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Bar -->
+    <div class="notification-bar">
+        <div class="notification-content">
+            <span class="notification-text">NEW ISSUES OF HERINTECH HAS ARRIVED NOW</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">HerInTech</div>
+            <ul class="nav-menu">
+                <li><a href="chome.html" class="nav-item">Home</a></li>
+                <li><a href="cgallery.html" class="nav-item">Gallery</a></li>
+                <li><a href="ccoverp.html" class="nav-item active">Cover Story</a></li>
+                <li><a href="cfacilitators.html" class="nav-item">Facilitators</a></li>
+                <li><a href="cabout.html" class="nav-item">About Us</a></li>
+                <li><a href="csupport.html" class="nav-item">Support Us</a></li>
+                <li><a href="ccontact.html" class="nav-item">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="join-btn" onclick="window.location.href='contact.html'">Join Us</button>
+                <button class="support-btn" onclick="window.location.href='support.html'">Support us</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Cover Story</h1>
+                <p class="page-subtitle">Inspiring stories of women breaking barriers in technology</p>
+            </div>
+
+            <!-- Cover Story Section -->
+            <section class="story-section">
+                <h2 class="section-title">Cover Story</h2>
+                <div class="story-content">
+                    <p>HerInTech's cover story highlights the most inspiring women in technology. Each edition celebrates their achievements and provides insight into breaking barriers and creating opportunities for the next generation.</p>
+                    
+                    <p>From coding wizards to product designers, our cover stories motivate readers to explore STEM and redefine what's possible in tech.</p>
+                </div>
+               
+                <div class="image-section">
+                    <img src="mainpic.jpg"
+                         alt="HerInTech presentation scene with speaker and audience"
+                         class="main-image">
+                    <p class="image-caption">
+                        "HerInTech proves that the future of innovation has no limits — and it's open to everyone ready to create."
+                    </p>
+                </div>
+               
+                <img src="pic4.jpg"
+                     alt="HerInTech team group photo"
+                     class="team-image">
+               
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="h3.jpg"
+                             alt="Her In Tech logo">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Her In Tech</h3>
+                        <p>"Her HerInTech looks at you when you're out here struggling since but we're right there waiting to help"</p>
+                       
+                        <div class="what-we-offer">
+                            <h4>WHAT WE OFFER</h4>
+                            <div class="offer-list">
+                                "Where Girls Code the Future"<br>
+                                "Innovation in Her Hands"<br>
+                                "Bold Minds, Bright Tech"<br>
+                                "Empowering Girls, One Click at a Time"<br>
+                                "Her Vision, Her Code, Her Future"<br>
+                                "Breaking Barriers in Technology"<br>
+                                "The Digital Voice of Young Women"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="quote-section">
+                    "HerIn Tech proves that the future of innovation has no limits — and it's open to everyone ready to create."
+                </div>
+               
+                <footer class="story-footer">
+                    <p class="team-credit">~ The HerInTech Magazine Team ~</p>
+                    <p class="author-credit">Written by: Gaju Maureen</p>
+                </footer>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Add entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Set initial state and observe sections
+        document.querySelectorAll('.story-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Add image loading animation
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '0';
+                this.style.animation = 'slideInUp 0.8s ease-out forwards';
+            });
+        });
+
+        // Add parallax effect to images
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const images = document.querySelectorAll('.main-image, .team-image');
+            
+            images.forEach((img, index) => {
+                const rate = scrolled * -0.5;
+                img.style.transform = `translateY(${rate}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
